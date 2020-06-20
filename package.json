@@ -6,10 +6,16 @@
   "author": "sa2taka <sa2taka@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap",
-    "build:production": "rm -rf dist && yarn esbuild --bundle src/index.ts --outdir=dist --minify"
+    "build": "esbuild src/index.ts --outdir=dist --minify --sourcemap",
+    "build:production": "rm -rf dist && esbuild src/index.ts --outdir=dist --minify --sourcemap"
   },
   "devDependencies": {
-    "esbuild": "^0.5.4"
+    "esbuild": "^0.5.4",
+    "express": "^4.17.1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^1.6.0",
+    "@line/bot-sdk": "^7.0.0",
+    "global": "^4.4.0"
   }
 }
