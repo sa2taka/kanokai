@@ -1,0 +1,15 @@
+{
+  "name": "kanokai",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/sa2taka/kanokai",
+  "author": "sa2taka <sa2taka@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap",
+    "build:production": "rm -rf dist && yarn esbuild --bundle src/index.ts --outdir=dist --minify"
+  },
+  "devDependencies": {
+    "esbuild": "^0.5.4"
+  }
+}
