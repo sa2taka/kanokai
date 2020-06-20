@@ -4,7 +4,6 @@ import { SignatureValidationFailed, validateSignature, WebhookEvent } from "@lin
 import { lineConfig } from "./secrets/line";
 
 export function webhook(req: Request, res: Response) {
-  console.log(req);
   const signature = req.get('x-line-signature');
 
   if (!signature) {
@@ -22,6 +21,7 @@ export function webhook(req: Request, res: Response) {
 }
 
 function handleEvent(event: WebhookEvent) {
+  console.log(event);
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);

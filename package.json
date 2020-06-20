@@ -6,12 +6,13 @@
   "author": "sa2taka <sa2taka@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild src/index.ts --outdir=dist --minify --sourcemap",
-    "build:production": "rm -rf dist && esbuild src/index.ts --outdir=dist --minify --sourcemap"
+    "build": "esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap --format=cjs --platform=node",
+    "build:production": "rm -rf dist && yarn esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap --format=cjs --platform=node"
   },
   "devDependencies": {
     "esbuild": "^0.5.4",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "supports-color": "^7.1.0"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^1.6.0",
