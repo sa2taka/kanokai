@@ -8,10 +8,12 @@
   "scripts": {
     "lint": "eslint",
     "build": "esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap --format=cjs --platform=node",
-    "build:production": "rm -rf dist && yarn esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap --format=cjs --platform=node",
+    "build:production": "rm -rf dist && yarn esbuild --bundle src/index.ts --outdir=dist --minify --format=cjs --platform=node",
     "checkType": "tsc",
     "format": "prettier -c '**/*.ts' '**/*.js' --ignore-path .gitignore & yarn eslint --fix",
-    "test": "jest"
+    "test": "jest",
+    "deploy:webhook": "gcloud functions deploy LineWebhook --entry-point webhook --runtime nodejs12 --trigger-http --region asia-northeast1",
+    "deploy:morning-call": "gcloud functions deploy MorningCall --entry-point morningCall --runtime nodejs12 --trigger-topic morning-call --region asia-northeast1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",

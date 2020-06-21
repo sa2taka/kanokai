@@ -98,7 +98,7 @@ export function weatherText(): Promise<string> {
         maxTemp.temp
       }℃、最低気温は${minTemp.time.getHours()}時に${
         minTemp.temp
-      }℃だわ。最大降水確率は${maxPop.time.getHours()}時に${maxPop.pop}%よ`;
+      }℃だわ。最大降水確率は${maxPop.time.getHours()}時に${maxPop.pop}%よ。`;
 
       return text;
     })
