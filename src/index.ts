@@ -1,20 +1,19 @@
 import { client } from './line';
-import { Request, Response } from 'express';
+import { morningFirstCall, weatherText } from './call';
 import {
   SignatureValidationFailed,
   validateSignature,
   WebhookEvent,
 } from '@line/bot-sdk';
-import { lineConfig } from './secrets/line';
+import { lineConfig, masterUserId } from './secrets/line';
 
-export function webhook(req: Request, res: Response) {
+export function webhook(req: any, res: any) {
   const signature = req.get('x-line-signature');
 
   if (!signature) {
     throw new SignatureValidationFailed('no signature');
   }
 
-  // @ts-ignore Response@RequestにはrawBodyはないが、google functionsにはあるので問題なし
   if (!validateSignature(req.rawBody, lineConfig.channelSecret, signature)) {
     throw new SignatureValidationFailed(
       'signature validation failed',
@@ -22,7 +21,7 @@ export function webhook(req: Request, res: Response) {
     );
   }
 
-  Promise.all(req.body.events.map(handleEvent))
+  return Promise.all(req.body.events.map(handleEvent))
     .then((result) => res.json(result))
     .catch((error) => console.error(error));
 }
@@ -35,6 +34,21 @@ function handleEvent(event: WebhookEvent) {
 
   return client.replyMessage(event.replyToken, {
     type: 'text',
-    text: event.message.text,
+    text: 'あら、私に話しかけても意味ありませんよ。',
   });
+}
+
+export async function morningCall() {
+  try {
+    client.pushMessage(masterUserId, {
+      type: 'text',
+      text: morningFirstCall(),
+    });
+    client.pushMessage(masterUserId, {
+      type: 'text',
+      text: await weatherText(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
