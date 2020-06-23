@@ -40,7 +40,7 @@ export function weatherText(): Promise<string> {
       const hoursText = value.data
         .map((data, index) => {
           const date = new Date(data.timestamp_local);
-          if (nowDate.toDateString !== date.toDateString) {
+          if (nowDate.toDateString() !== date.toDateString()) {
             return null;
           }
           if (index === 0) {
@@ -94,7 +94,7 @@ export function weatherText(): Promise<string> {
         text += '今日は傘を持っていくほうが良いわね。\n';
       }
 
-      text += `\nこれから24時までの最大気温は${maxTemp.time.getHours()}時に${
+      text += `これから24時までの最大気温は${maxTemp.time.getHours()}時に${
         maxTemp.temp
       }℃、最低気温は${minTemp.time.getHours()}時に${
         minTemp.temp
