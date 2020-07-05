@@ -88,27 +88,24 @@ export async function meow() {
         return sleep(2);
       })
       .then(async () => {
-        const image1 = await fetchCat();
-        const image2 = await fetchCat();
-        const image3 = await fetchCat();
-        console.log(image1);
-        console.log(image2);
-        console.log(image3);
+        const images = await fetchCat();
+        console.log(images);
+
         return Promise.all([
           client.pushMessage(masterUserId, {
             type: 'image',
-            originalContentUrl: image1,
-            previewImageUrl: image1,
+            originalContentUrl: images[0],
+            previewImageUrl: images[0],
           }),
           client.pushMessage(masterUserId, {
             type: 'image',
-            originalContentUrl: image2,
-            previewImageUrl: image2,
+            originalContentUrl: images[1],
+            previewImageUrl: images[1],
           }),
           client.pushMessage(masterUserId, {
             type: 'image',
-            originalContentUrl: image3,
-            previewImageUrl: image3,
+            originalContentUrl: images[2],
+            previewImageUrl: images[2],
           }),
         ]);
       });
